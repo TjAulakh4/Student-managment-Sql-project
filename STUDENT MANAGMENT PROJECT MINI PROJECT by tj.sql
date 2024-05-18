@@ -1,0 +1,68 @@
+create database MINI_PROJECT
+USE MINI_PROJECT
+
+CREATE TABLE STUD(STUDENT_ID INT PRIMARY KEY,STUDENT_NAME VARCHAR(50), DATE_OF_BIRTH INT,EMAIL VARCHAR(50),MAJOR VARCHAR(50))
+SELECT * FROM STUD 
+
+CREATE TABLE COURSE(COURSE_ID INT PRIMARY KEY ,COURSE_NAME VARCHAR(50), CREDIT_HOURS INT ,INSTRUCTOR VARCHAR(50))
+SELECT * FROM COURSE 
+INSERT INTO STUD(STUDENT_ID,STUDENT_NAME, DATE_OF_BIRTH,EMAIL,MAJOR) VALUES(1,'AMAN',01-02-1997,'123@GMAIL.COM','CS'),(2,'ANA',02-02-1998,'234@GMAIL.COM','IT'),(3,'KAPIL',06-05-1997,'345@GMAIL.COM','CE'),(4,'JASS',06-05-1995,'456@GMAIL.COM','CE')
+
+INSERT INTO COURSE(COURSE_ID,COURSE_NAME, CREDIT_HOURS ,INSTRUCTOR) VALUES(1212,'B.TECH','2','NAMAN'),(1313,'B.PHARMA','2','PREET'),(1414,'B.TECH','4','JOT'),(1515,'M.TECH','26','JIMMY')
+
+A = Retrieve the list of all students.
+SELECT * FROM STUD
+ 
+B=Retrieve the list of all courses.
+
+SELECT * FROM COURSE
+
+C. Retrieve the list of students who are majoring in a specific major (e.g., Computer Science)
+SELECT *FROM STUD WHERE MAJOR='CE'
+
+D=Retrieve the list of students who were born before a specific date.
+SELECT * FROM STUD WHERE DATE_OF_BIRTH < '01-01-2000'
+
+E. Retrieve the list of courses taught by a specific instructor.
+SELECT* FROM COURSE WHERE INSTRUCTOR='JOT'
+
+f. Retrieve the total number of students enrolled in each major.
+SELECT MAJOR, COUNT(*) AS COUNT  FROM STUD GROUP BY MAJOR
+
+
+g. Retrieve the course with the highest number of credit hours.
+SELECT MAX(CREDIT_HOURS) AS HIGHEST FROM COURSE
+
+h. Retrieve the oldest and youngest students in the database.
+YOUNGEST
+SELECT * FROM STUD ORDER BY DATE_OF_BIRTH ASC LIMIT 1
+OLDEST
+SELECT * FROM STUD ORDER BY DATE_OF_BIRTH DESC LIMIT 1
+
+I. Add a new course to the Courses table.
+INSERT INTO COURSE(COURSE_ID,COURSE_NAME, CREDIT_HOURS ,INSTRUCTOR) VALUES(12233,'M.SC','20','JITU')
+SELECT * FROM COURSE
+
+J. Enroll a new student in the Students table.
+INSERT INTO STUD(STUDENT_ID,STUDENT_NAME, DATE_OF_BIRTH,EMAIL,MAJOR) VALUES(5,'AMANDEEP',01-02-2001,'1222@GMAIL.COM','CS')
+SELECT * FROM STUD
+
+K. Update the email address of a student based on their student_id.
+UPDATE STUD SET EMAIL='12233@GMAIL.COM' WHERE STUDENT_ID=3
+SELECT * FROM STUD 
+
+NESTED QUERIES
+
+CREATE TABLE Enrollment(enrollment_id INT PRIMARY KEY AUTO_INCREMENT ,STUDENT_ID INT,COURSE_ID INT,
+    FOREIGN KEY(STUDENT_ID) REFERENCES STUD(STUDENT_ID),
+    FOREIGN KEY(COURSE_ID) REFERENCES COURSE(COURSE_ID))
+    
+INSERT INTO Enrollment (student_id,course_id) VALUES (1,1212),(2,1313),(3,1414),(4,1515),(5,12233);
+SELECT * FROM Enrollment
+
+L. Retrieve the list of students who are enrolled in a specific course.
+SELECT * FROM STUD WHERE student_id IN (SELECT student_id FROM Enrollment WHERE course_id = 1212);
+
+
+
+
